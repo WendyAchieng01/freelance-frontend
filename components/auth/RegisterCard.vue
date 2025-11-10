@@ -77,7 +77,8 @@
     <!-- Step 2: Edit Email & Resend Verification -->
     <div v-else class="mt-5">
       <h2 class="text-h5 font-weight-medium">Verify Your Email</h2>
-      <p>Check your email for the verification link. If it's incorrect, you can edit it below:</p>
+      <p>Please check your email for the verification link. If you do not find it in your inbox, kindly review your spam or junk folder. 
+        <br>Should the email address be incorrect, you may edit it below:</br></p>
 
       <v-form @submit.prevent="resendVerification" class="mt-5">
         <v-text-field
