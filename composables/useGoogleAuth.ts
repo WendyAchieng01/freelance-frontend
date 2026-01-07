@@ -81,7 +81,6 @@ export function useGoogleAuth(mode: "login" | "register", userType?: "client" | 
                     size: "large",
                     text: mode === "login" ? "signin_with" : "signup_with",
                     shape: "rectangular",
-                    width: "100%",
                     logo_alignment: "left",
                 });
             }
