@@ -1,61 +1,122 @@
 <template>
-  <p class="text-h4 mt-15">
-    Trusted by leading <br />
-    brands and startups
-  </p>
-  <v-row class="mt-5">
-    <v-col v-for="n in 2" :key="n" cols="12" md="6">
-      <v-sheet rounded="lg" style="background-color: #efefef" height="300">
-        <v-row class="fill-height">
-          <v-col cols="5" class="fill-height pa-0">
-            <div class="d-flex flex-column justify-end h-100">
-              <div class="h-75">
-                <v-img
-                  src="/images/testimonial_image.jpg"
-                  class="rounded-lg ml-3"
-                  cover
-                  aspect-ratio="1/1"
-                />
-              </div>
-            </div>
-          </v-col>
-          <v-col cols="7">
-            <div class="pa-5">
-              <p
-                class="text-subtitle-1 font-weight-medium"
-                style="font-weight: 400"
-              >
-                <v-icon
-                  icon="mdi-format-quote-open"
-                  color="primary"
-                  class="quote-icon-start"
-                />
-                I got the best knowledge from Acetech and I am glad I was a part
-                of it
-                <v-icon
-                  icon="mdi-format-quote-close"
-                  color="primary"
-                  class="quote-icon-end"
-                />
-              </p>
+  <div class="testimonials-section py-16">
+    <p class="text-h4 text-center mb-4 font-weight-bold primary--text">
+      Trusted by Ambitious Brands <br />and Growing Startups
+    </p>
+    <p class="text-subtitle-1 text-center mb-12 grey--text text--darken-1">
+      See how Kenyan and African businesses are scaling faster with NillTech
+    </p>
 
-              <p class="text-subtitle-1 text-primary font-weight-bold mt-5">
-                Bonnie Green
+    <v-row class="mt-6">
+      <v-col
+        v-for="(testimonial, index) in testimonials"
+        :key="index"
+        cols="12"
+        md="6"
+      >
+        <v-sheet
+          rounded="xl"
+          elevation="2"
+          class="pa-6 h-100 d-flex flex-column"
+          color="grey lighten-4"
+        >
+          <div class="d-flex align-start mb-6">
+            <v-avatar size="80" class="mr-4">
+              <v-img
+                :src="testimonial.image"
+                cover
+              />
+            </v-avatar>
+
+            <div>
+              <p class="text-h6 font-weight-bold mb-1">
+                {{ testimonial.name }}
               </p>
-              <p class="text-subtitle-2 font-weight-light">Product Designer</p>
+              <p class="text-subtitle-2 grey--text text--darken-2">
+                {{ testimonial.role }} • {{ testimonial.company }}
+              </p>
             </div>
-          </v-col>
-        </v-row>
-      </v-sheet>
-    </v-col>
-  </v-row>
+          </div>
+
+          <div class="flex-grow-1">
+            <v-icon
+              icon="mdi-format-quote-open"
+              color="primary"
+              size="32"
+              class="quote-icon-start mb-2"
+            />
+            <p class="text-body-1 font-weight-medium">
+              {{ testimonial.quote }}
+            </p>
+            <v-icon
+              icon="mdi-format-quote-close"
+              color="primary"
+              size="32"
+              class="quote-icon-end ml-2"
+            />
+          </div>
+
+          <div class="mt-4">
+            <v-rating
+              v-model="rating"
+              color="amber"
+              background-color="grey lighten-1"
+              length="5"
+              size="20"
+              readonly
+              dense
+            />
+          </div>
+        </v-sheet>
+      </v-col>
+    </v-row>
+
+
+  </div>
 </template>
+
+<script setup>
+const rating = 5
+
+const testimonials = [
+  {
+    name: "Aisha Mwangi",
+    role: "Founder & CEO",
+    company: "Kipepeo Fashion",
+    quote: "NillTech delivered our e-commerce mobile app and website in just 5 weeks. The quality and speed were unbelievable — our sales tripled in the first quarter!",
+    image: "/images/testimonial_aisha.jpg" // Use professional smiling African female entrepreneur
+  },
+  {
+    name: "Kevin Otieno",
+    role: "Digital Marketing Lead",
+    company: "SwiftGrow Agency",
+    quote: "Their Microtask Marketplace saved us thousands. We get high-quality social media creatives, SEO tweaks, and content on-demand — faster and cheaper than hiring full-time.",
+    image: "/images/testimonial_kevin.jpg" // Use confident young African male professional
+  },
+  {
+    name: "Fatuma Ali",
+    role: "Co-founder",
+    company: "AfriLearn EdTech",
+    quote: "From custom web app development to ongoing maintenance and hosting, NillTech has been our reliable tech partner. Professional, responsive, and truly understands African startups.",
+    image: "/images/testimonial_fatuma.jpg" // Use warm smiling East African female business portrait
+  },
+  {
+    name: "Brian Kamau",
+    role: "Managing Director",
+    company: "PeakPulse Logistics",
+    quote: "We needed quick landing pages and micro-tasks for campaigns — NillTech delivered everything perfectly on tight deadlines. Best outsourcing decision we made this year.",
+    image: "/images/testimonial_brian.jpg" // Use professional African male in business attire
+  }
+]
+</script>
 
 <style scoped>
 .quote-icon-start,
 .quote-icon-end {
   vertical-align: middle;
-  margin-left: 0.1em;
-  margin-right: 0.1em;
+}
+
+.testimonials-section {
+  background: "#efefef";
 }
 </style>
