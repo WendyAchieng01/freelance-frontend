@@ -74,27 +74,109 @@
     <p class="text-h6 mt-10">Kindly fill the form correctly</p>
     <v-form ref="formElement" class="mt-5" @submit.prevent="submitApplication">
       <template #default="{ isValid }">
-        <v-file-input
-          v-model="applicationForm.portfolio"
-          label="Portfolio"
-          :rules="[required]"
-          show-size
-          :error-messages="applicationFormErrors.portfolio"
-        />
-        <v-file-input
-          v-model="applicationForm.cover_letter"
-          label="Cover letter"
-          show-size
-          :rules="[required]"
-          :error-messages="applicationFormErrors.cover_letter"
-        />
-        <v-file-input
-          v-model="applicationForm.cv"
-          label="Curriculum Vitae (CV)"
-          :rules="[required]"
-          show-size
-          :error-messages="applicationFormErrors.cv"
-        />
+        <div class="upload-section mt-6">
+          <p class="text-subtitle-1 font-weight-medium mb-4 primary--text">
+            Required Application Documents
+          </p>
+          <p class="text-body-2 grey--text text--darken-1 mb-6">
+            Please upload clear, up-to-date files. PDF format is strongly preferred.
+            Max file size: 10MB per document.
+          </p>
+
+          <v-row dense>
+            <!-- CV - Most important, put first -->
+            <v-col cols="12" sm="6">
+              <v-file-input
+                v-model="applicationForm.cv"
+                label="Curriculum Vitae (CV) *"
+                hint="PDF preferred • Max 10MB • Include relevant experience & skills"
+                persistent-hint
+                prepend-icon="mdi-file-account"
+                accept=".pdf,.doc,.docx"
+                show-size
+                :rules="[
+                  required,
+                  v => !v || v.size <= 10 * 1024 * 1024 || 'File too large (max 10MB)',
+                  v => !v || ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document']
+                    .includes(v.type) || 'Only PDF, DOC or DOCX allowed'
+                ]"
+                :error-messages="applicationFormErrors.cv || []"
+                density="compact"
+                class="mb-2"
+              />
+            </v-col>
+
+            <!-- Cover Letter -->
+            <v-col cols="12" sm="6">
+              <v-file-input
+                v-model="applicationForm.cover_letter"
+                label="Cover Letter *"
+                hint="PDF preferred • Tell us why you're perfect for this job (1-2 pages)"
+                persistent-hint
+                prepend-icon="mdi-file-document-edit"
+                accept=".pdf,.doc,.docx"
+                show-size
+                :rules="[
+                  required,
+                  v => !v || v.size <= 10 * 1024 * 1024 || 'File too large (max 10MB)',
+                  v => !v || ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document']
+                    .includes(v.type) || 'Only PDF, DOC or DOCX allowed'
+                ]"
+                :error-messages="applicationFormErrors.cover_letter || []"
+                density="compact"
+                class="mb-2"
+              />
+            </v-col>
+
+            <!-- Portfolio (optional but very important in creative/tech) -->
+            <v-col cols="12">
+              <v-file-input
+                v-model="applicationForm.portfolio"
+                label="Portfolio / Work Samples (Optional)"
+                hint="PDF, images, or ZIP • Showcase your best relevant work (max 10MB)"
+                persistent-hint
+                prepend-icon="mdi-briefcase-variant"
+                accept=".pdf,.zip,.jpg,.jpeg,.png,.doc,.docx"
+                multiple
+                show-size
+                :rules="[
+                  v => !v || v.every(file => file.size <= 10 * 1024 * 1024) || 'Each file must be under 10MB',
+                  v => !v || v.every(file => 
+                    ['application/pdf','application/zip','image/jpeg','image/png',
+                    'application/msword','application/vnd.openxmlformats-officedocument.wordprocessingml.document']
+                    .includes(file.type)) || 'Allowed: PDF, ZIP, JPG, PNG, DOC, DOCX'
+                ]"
+                :error-messages="applicationFormErrors.portfolio || []"
+                density="compact"
+              >
+                <template v-slot:selection="{ fileNames }">
+                  <v-chip
+                    v-for="(fileName, i) in fileNames"
+                    :key="i"
+                    color="primary"
+                    label
+                    small
+                    class="ma-1"
+                  >
+                    {{ fileName }}
+                  </v-chip>
+                </template>
+              </v-file-input>
+            </v-col>
+          </v-row>
+
+          <!-- Quick tips / preview -->
+          <v-alert
+            v-if="applicationForm.cv || applicationForm.cover_letter"
+            type="info"
+            variant="tonal"
+            density="compact"
+            class="mt-4"
+            icon="mdi-lightbulb-outline"
+          >
+            Good applications with clear CVs + tailored cover letters get 3× more responses!
+          </v-alert>
+        </div>
 
         <!-- payment details -->
         <p class="text-h6">Payment Details</p>

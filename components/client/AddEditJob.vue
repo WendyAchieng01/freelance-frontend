@@ -249,6 +249,20 @@ const preferredLevels: Array<{
   { text: "Expert", value: "expert" },
 ];
 
+<<<<<<< Updated upstream
+=======
+const skills: Array<{
+  text: string;
+  value: string;
+}> = [
+  { text: "React", value: "react" },
+  { text: "Android", value: "android" },
+  { text: "iOS", value: "ios" },
+  { text: "Flutter", value: "flutter" },
+  { text: "DevOps", value: "devops" },
+];
+
+>>>>>>> Stashed changes
 // ------------------------------------
 // Main Job Posting Function
 // ------------------------------------
